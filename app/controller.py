@@ -3,15 +3,15 @@ import json
 
 def reading_users():
     try:
-        with open("users.json", "r") as file:
+        with open("users.json", "r", encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
         return []
 
 
 def writing_users(users):
-    with open("users.json", "w") as file:
-        json.dump(users, file)
+    with open("users.json", "w", encoding='utf-8') as file:
+        json.dump(users, file, indent=2)
 
 
 def users_get():
@@ -50,6 +50,9 @@ def user_update(id: int, new_data: dict):
                 user["name"] = new_data["name"]
             if "lastname" in new_data:
                 user["lastname"] = new_data["lastname"]
+            writing_users(users=users)
+            return True
+    return False
 
 
 def user_replace(id: int, new_data: dict):
@@ -57,16 +60,15 @@ def user_replace(id: int, new_data: dict):
         return False
 
     users = reading_users()
-    for user in users():
+    for user in users:
         if user["id"] == id:
-            user["name"] == new_data["name"]
-            user["lastname"] == new_data["lastname"]
+            user.update(new_data)  # Update existing user
             writing_users(users=users)
             return True
 
     new_user = {"id": id, "name": new_data["name"], "lastname": new_data["lastname"]}
     users.append(new_user)
-    writing_users(users=user)
+    writing_users(users=users)
     return True
 
 

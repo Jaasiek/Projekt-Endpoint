@@ -1,16 +1,6 @@
 import pytest
-import json
-import os
-from ...app.controller import (
-    user_create,
-    user_delete,
-    user_get,
-    users_get,
-    user_replace,
-    user_update,
-    reading_users,
-    writing_users,
-)
+
+from ...app.controller import *
 
 
 @pytest.fixture

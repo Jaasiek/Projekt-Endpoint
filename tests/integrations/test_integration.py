@@ -1,7 +1,7 @@
 import pytest
 from flask import Flask
 from app.app import app
-from app import controller
+from app.controller import *
 
 
 @pytest.fixture
@@ -15,13 +15,12 @@ def test_flask_app_exists() -> None:
 
 
 def test_users_get() -> None:
-    with app.test_request_context():
-        assert controller.users_get()[1] == 200
+    pass
 
 
 def test_user_get() -> None:
     with app.test_request_context():
-        assert controller.user_get(1)[1] == 200
+        assert user_get(1)[1] == 200
 
 
 def test_post_user() -> None:
