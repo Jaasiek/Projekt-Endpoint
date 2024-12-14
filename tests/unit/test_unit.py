@@ -60,3 +60,14 @@ def test_replacing_user():
     users = reading_users()
     user_replacing = next(user for user in users if user["id"] == user_id)
     assert user_replacing["name"] == "Adam"
+
+
+def test_deleting_user():
+    users = reading_users()
+
+    user_id = users[0]["id"]
+    user_to_delete = user_delete(user_id)
+    assert user_to_delete
+
+    users = reading_users()
+    assert not any(user["id"] == user_id for user in users)
