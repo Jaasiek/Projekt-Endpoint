@@ -50,3 +50,21 @@ def user_update(id, new_data):
                 user["name"] = new_data["name"]
             if "lastname" in new_data:
                 user["lastname"] = new_data["lastname"]
+
+
+def user_replace(id, new_data):
+    if "name" not in new_data or "lastname" not in new_data:
+        return False
+
+    users = reading_users()
+    for user in users():
+        if user["id"] == id:
+            user["name"] == new_data["name"]
+            user["lastname"] == new_data["lastname"]
+            writing_users(users=users)
+            return True
+
+    new_user = {"id": id, "name": new_data["name"], "lastname": new_data["lastname"]}
+    users.append(new_user)
+    writing_users(users=user)
+    return True
