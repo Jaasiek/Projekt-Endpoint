@@ -23,5 +23,11 @@ def home_page():
     return "Server is running stable", 200
 
 
+@app.route("/users")
+def users_get():
+    users = reading_users()
+    return jsonify(reading_users), 200
+
+
 if __name__ == "__main__":
     app.run()
