@@ -39,6 +39,14 @@ def user_update(id):
     return jsonify({"An error occurred": "Invalid request"}), 400
 
 
+@app.route("/users/<id:int>", methods=["PUT"])
+def user_replace(id):
+    user_data = request.get_json()
+    if controller.user_update(id, user_data):
+        return "User repleaced succesfully", 204
+    return jsonify({"An error occurred": "Invalid request"}), 400
+
+
 @app.route("/users/<int:id>", methods=["DELETE"])
 def user_delete(id):
     pass
