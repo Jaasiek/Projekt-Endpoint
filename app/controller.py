@@ -24,3 +24,19 @@ def user_get(id):
         if user["id"] == id:
             return user
     return None
+
+
+def user_create(user_data):
+    if "name" not in user_data or "lastname" not in user_data:
+        return None
+    users = reading_users()
+    max_user_id = max((user["id"] for user in users), default=0)
+    new_user_id = max_user_id + 1
+    new_user = {
+        "id": new_user_id,
+        "name": user_data["name"],
+        "lastname": user_data["lastname"],
+    }
+    users.append(new_user)
+    writing_users(users=users)
+    return new_user
