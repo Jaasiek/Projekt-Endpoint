@@ -25,12 +25,18 @@ def single_user_get(id):
 
 @app.route("/users", methods=["POST"])
 def user_create():
-    pass
+    user_data = request.get_json()
+    new_user = controller.user_create(user_data)
+    if new_user:
+        return jsonify(new_user), 201
 
 
 @app.route("/users/<int:id>", methods=["PATCH"])
 def user_update(id):
-    pass
+    user_data = request.get_json()
+    if controller.user_update(id, user_data):
+        return "User updated succesfully", 204
+    return jsonify({"An error occurred": "Invalid request"}), 400
 
 
 @app.route("/users/<int:id>", methods=["DELETE"])
