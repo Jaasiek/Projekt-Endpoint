@@ -41,4 +41,14 @@ def adding_user():
 
 
 def modify_user():
-    pass
+    users = reading_users()
+    if users:
+        user_id = users[0]["id"]
+        updating = user_update(user_id, {"name": "Tomasz"})
+        assert updating
+
+        users = reading_users()
+        updated_user = next(user for user in users if user["id"] == user_id)
+        assert updated_user["name"] == "Tomasz"
+    else:
+        pytest.skip("No users to modify")
