@@ -12,75 +12,27 @@ def home_page():
 
 @app.route("/users")
 def users_get():
-    users = reading_users()
-    return jsonify(reading_users), 200
+    pass
 
 
 @app.route("/users/<int:id>")
 def single_user_get(id):
-    users = reading_users()
-
-    for user in users:
-        if user["id"] == id:
-            wanted = user
-            break
-    if wanted:
-        return jsonify(wanted), 200
-    return jsonify({"An error occurred": "User not found"}), 400
+    pass
 
 
 @app.route("/users", methods=["POST"])
 def user_create():
-    path_data = request.get_json()
-    if "name" in user and "lastname" in user:
-        users = reading_users()
-        max_users_id = 0
-        for user in users:
-            if user["id"] > max_users_id:
-                max_users_id = user["id"]
-        new_user_id = max_users_id + 1
-        new_user = {
-            "id": new_user_id,
-            "name": path_data["name"],
-            "lastname": path_data["lastname"],
-        }
-        users.append(new_user)
-        writing_users(users=users)
-        return jsonify(new_user), 200
-    return jsonify({"An error occurred": "Invalid request"}), 400
+    pass
 
 
 @app.route("/users/<int:id>", methods=["PATCH"])
 def user_update(id):
-    path_data = request.get_json()
-    users = reading_users()
-    for user in users:
-        if user["id"] == id:
-            wanted = user
-            break
-    if wanted:
-        if "name" in path_data:
-            wanted["name"] = path_data["name"]
-        if "lastname" in path_data:
-            wanted["lastname"] = path_data["lastname"]
-        writing_users(users=users)
-        return "User updated succesfully", 204
-
-    return jsonify({"An error occurred": "Invalid request"}), 400
+    pass
 
 
 @app.route("/users/<int:id>", methods=["DELETE"])
 def user_delete(id):
-    users = reading_users()
-    for user in users:
-        if user["id"] == id:
-            users.remove(user)
-            user_deleted = True
-    if user_deleted:
-        writing_users(users=users)
-        return "User succesfully deleted", 204
-
-    return jsonify({"An error occurred": "User not found"}), 400
+    pass
 
 
 if __name__ == "__main__":
