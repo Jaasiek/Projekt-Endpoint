@@ -68,3 +68,15 @@ def user_replace(id, new_data):
     users.append(new_user)
     writing_users(users=user)
     return True
+
+
+def user_delete(id):
+    users = reading_users()
+
+    for user in users:
+        if user["id"] == id:
+            users.remove(user)
+            writing_users(users=users)
+            return True
+
+    return False
