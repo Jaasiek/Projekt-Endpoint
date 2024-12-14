@@ -22,13 +22,11 @@ def test_get_users():
 
 def test_get_single_user():
     users = reading_users()
-    if users:
-        user_id = users[0]["id"]
-        user = user_get(user_id)
-        assert user is not None
-        assert user["id"] == user_id
-    else:
-        pytest.skip("Empty file")
+
+    user_id = users[0]["id"]
+    user = user_get(user_id)
+    assert user is not None
+    assert user["id"] == user_id
 
 
 def test_adding_user():
@@ -42,17 +40,23 @@ def test_adding_user():
 
 def test_modify_user():
     users = reading_users()
-    if users:
-        user_id = users[0]["id"]
-        updating = user_update(user_id, {"name": "Tomasz"})
-        assert updating
 
-        users = reading_users()
-        updated_user = next(user for user in users if user["id"] == user_id)
-        assert updated_user["name"] == "Tomasz"
-    else:
-        pytest.skip("No users to modify")
+    user_id = users[0]["id"]
+    updating = user_update(user_id, {"name": "Tomasz"})
+    assert updating
+
+    users = reading_users()
+    updated_user = next(user for user in users if user["id"] == user_id)
+    assert updated_user["name"] == "Tomasz"
 
 
 def test_replacing_user():
-    pass
+    users = reading_users()
+
+    user_id = users[0]["id"]
+    user_replacing = user_replace(user_id, {"name": "Adam", "lastname": "Kużma"})
+    assert user_replacing
+
+    users = reading_users()
+    user_replacing = next(user for user in users if user["id"] == user_id)
+    assert user_replacing["name"] == "Adam"
