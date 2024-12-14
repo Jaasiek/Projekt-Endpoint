@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import json
 
 
@@ -39,7 +39,28 @@ def single_user_get(id):
             break
     if wanted:
         return jsonify(wanted), 200
-    return jsonify({"error": "User not found"}), 400
+    return jsonify({"error occurred": "User not found"}), 400
+
+
+@app.route("/users", methods=["POST"])
+def user_create():
+    path_data = request.get_json()
+    if "name" in user and "lastname" in user:
+        users = reading_users()
+        max_users_id = 0
+        for user in users:
+            if user["id"] > max_users_id:
+                max_users_id = user["id"]
+        new_user_id = max_users_id + 1
+        new_user = {
+            "id": new_user_id,
+            "name": path_data["name"],
+            "lastname": path_data["lastname"],
+        }
+        users.append(new_user)
+        writing_users(users=users)
+        return jsonify(new_user), 200
+    return jsonify({"error occurred": "Invalid request"}), 400
 
 
 if __name__ == "__main__":
