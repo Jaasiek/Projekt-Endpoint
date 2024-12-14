@@ -14,5 +14,13 @@ def writing_users(users):
         json.dump(users, file)
 
 
-def get_all_users():
+def users_get():
     return reading_users()
+
+
+def user_get(id):
+    users = reading_users()
+    for user in users:
+        if user["id"] == id:
+            return user
+    return None
