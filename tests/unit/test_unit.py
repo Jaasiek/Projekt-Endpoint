@@ -31,16 +31,16 @@ def test_get_single_user():
         pytest.skip("Empty file")
 
 
-def adding_user():
+def test_adding_user():
     new_user = {"name": "Filip", "lastname": "Łoniakowski"}
-    user_adding = adding_user(new_user)
+    user_adding = user_create(new_user)
     assert user_adding["name"] == "Filip"
     assert user_adding["lastname"] == "Łoniakowski"
     users = reading_users()
     assert any(user["id"] == user_adding["id"] for user in users)
 
 
-def modify_user():
+def test_modify_user():
     users = reading_users()
     if users:
         user_id = users[0]["id"]
@@ -52,3 +52,7 @@ def modify_user():
         assert updated_user["name"] == "Tomasz"
     else:
         pytest.skip("No users to modify")
+
+
+def test_replacing_user():
+    pass
