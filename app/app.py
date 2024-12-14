@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import json
+import controller
 
 
 app = Flask(__name__)
@@ -12,12 +12,15 @@ def home_page():
 
 @app.route("/users")
 def users_get():
-    pass
+    return jsonify(controller.users_get()), 200
 
 
 @app.route("/users/<int:id>")
 def single_user_get(id):
-    pass
+    user = controller.user_get(id)
+    if user:
+        return jsonify(user), 200
+    return jsonify({"An error occurred": "User not found"}), 400
 
 
 @app.route("/users", methods=["POST"])
