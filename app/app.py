@@ -5,17 +5,17 @@ import controller
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.get("/")
 def home_page():
     return "Server is running stable", 200
 
 
-@app.route("/users")
+@app.get("/users")
 def users_get():
     return jsonify(controller.users_get()), 200
 
 
-@app.route("/users/<int:id>")
+@app.get("/users/<int:id>")
 def single_user_get(id):
     user = controller.user_get(id)
     if user:
@@ -23,7 +23,7 @@ def single_user_get(id):
     return jsonify({"An error occurred": "User not found"}), 400
 
 
-@app.route("/users", methods=["POST"])
+@app.post("/users")
 def user_create():
     user_data = request.get_json()
     new_user = controller.user_create(user_data)
@@ -31,7 +31,7 @@ def user_create():
         return jsonify(new_user), 201
 
 
-@app.route("/users/<int:id>", methods=["PATCH"])
+@app.patch("/users/<int:id>")
 def user_update(id):
     user_data = request.get_json()
     if controller.user_update(id, user_data):
@@ -39,7 +39,7 @@ def user_update(id):
     return jsonify({"An error occurred": "Invalid request"}), 400
 
 
-@app.route("/users/<id:int>", methods=["PUT"])
+@app.put("/users/<id:int>")
 def user_replace(id):
     user_data = request.get_json()
     if controller.user_update(id, user_data):
@@ -47,7 +47,7 @@ def user_replace(id):
     return jsonify({"An error occurred": "Invalid request"}), 400
 
 
-@app.route("/users/<int:id>", methods=["DELETE"])
+@app.delete("/users/<int:id>")
 def user_delete(id):
     if controller.user_delete(id):
         return "User deleted succesfully", 204

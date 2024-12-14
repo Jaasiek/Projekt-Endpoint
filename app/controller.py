@@ -18,7 +18,7 @@ def users_get():
     return reading_users()
 
 
-def user_get(id):
+def user_get(id: int):
     users = reading_users()
     for user in users:
         if user["id"] == id:
@@ -26,7 +26,7 @@ def user_get(id):
     return None
 
 
-def user_create(user_data):
+def user_create(user_data: dict):
     if "name" not in user_data or "lastname" not in user_data:
         return None
     users = reading_users()
@@ -42,7 +42,7 @@ def user_create(user_data):
     return new_user
 
 
-def user_update(id, new_data):
+def user_update(id: int, new_data: dict):
     users = reading_users()
     for user in users:
         if user["id"] == id:
@@ -52,7 +52,7 @@ def user_update(id, new_data):
                 user["lastname"] = new_data["lastname"]
 
 
-def user_replace(id, new_data):
+def user_replace(id: int, new_data: dict):
     if "name" not in new_data or "lastname" not in new_data:
         return False
 
@@ -70,7 +70,7 @@ def user_replace(id, new_data):
     return True
 
 
-def user_delete(id):
+def user_delete(id: int):
     users = reading_users()
 
     for user in users:
