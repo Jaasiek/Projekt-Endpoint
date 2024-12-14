@@ -17,7 +17,7 @@ from ...app.controller import (
 def test_get_users():
     read_users = reading_users()
     users = users_get()
-    assert len(users) == len(users_get)
+    assert len(users) == len(read_users)
 
 
 def test_get_single_user():
