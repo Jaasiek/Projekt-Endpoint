@@ -40,3 +40,13 @@ def user_create(user_data):
     users.append(new_user)
     writing_users(users=users)
     return new_user
+
+
+def user_update(id, new_data):
+    users = reading_users()
+    for user in users:
+        if user["id"] == id:
+            if "name" in new_data:
+                user["name"] = new_data["name"]
+            if "lastname" in new_data:
+                user["lastname"] = new_data["lastname"]
