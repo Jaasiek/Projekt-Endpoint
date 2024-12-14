@@ -15,7 +15,7 @@ def reading_users():
 
 def writing_users(users):
     with open("users.json", "w") as file:
-        json.dump(users, file, indent=1)
+        json.dump(users, file)
 
 
 @app.route("/")
