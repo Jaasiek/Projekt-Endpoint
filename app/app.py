@@ -63,5 +63,24 @@ def user_create():
     return jsonify({"error occurred": "Invalid request"}), 400
 
 
+@app.route("/users/<int:id>", methods=["PATCH"])
+def user_update(id):
+    path_data = request.get_json()
+    users = reading_users()
+    for user in users:
+        if user["id"] == id:
+            wanted = user
+            break
+    if wanted:
+        if "name" in path_data:
+            wanted["name"] = path_data["name"]
+        if "lastname" in path_data:
+            wanted["lastname"] = path_data["lastname"]
+        writing_users(users=users)
+        return "User updated succesfully", 204
+
+    return jsonify({"error occurred": "Invalid request"}), 400
+
+
 if __name__ == "__main__":
     app.run()
