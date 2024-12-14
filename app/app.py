@@ -39,7 +39,7 @@ def single_user_get(id):
             break
     if wanted:
         return jsonify(wanted), 200
-    return jsonify({"error occurred": "User not found"}), 400
+    return jsonify({"An error occurred": "User not found"}), 400
 
 
 @app.route("/users", methods=["POST"])
@@ -60,7 +60,7 @@ def user_create():
         users.append(new_user)
         writing_users(users=users)
         return jsonify(new_user), 200
-    return jsonify({"error occurred": "Invalid request"}), 400
+    return jsonify({"An error occurred": "Invalid request"}), 400
 
 
 @app.route("/users/<int:id>", methods=["PATCH"])
@@ -79,7 +79,21 @@ def user_update(id):
         writing_users(users=users)
         return "User updated succesfully", 204
 
-    return jsonify({"error occurred": "Invalid request"}), 400
+    return jsonify({"An error occurred": "Invalid request"}), 400
+
+
+@app.route("/users/<int:id>", methods=["DELETE"])
+def user_delete(id):
+    users = reading_users()
+    for user in users:
+        if user["id"] == id:
+            users.remove(user)
+            user_deleted = True
+    if user_deleted:
+        writing_users(users=users)
+        return "User succesfully deleted", 204
+
+    return jsonify({"An error occurred": "User not found"}), 400
 
 
 if __name__ == "__main__":
