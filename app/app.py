@@ -49,7 +49,9 @@ def user_replace(id):
 
 @app.route("/users/<int:id>", methods=["DELETE"])
 def user_delete(id):
-    pass
+    if controller.user_delete(id):
+        return "User deleted succesfully", 204
+    return jsonify({"An error occurred": "User not found"}), 400
 
 
 if __name__ == "__main__":
