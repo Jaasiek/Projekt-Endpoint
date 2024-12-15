@@ -3,14 +3,14 @@ import json
 
 def reading_users():
     try:
-        with open("users.json", "r", encoding='utf-8') as file:
+        with open("users.json", "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         return []
 
 
 def writing_users(users):
-    with open("users.json", "w", encoding='utf-8') as file:
+    with open("users.json", "w", encoding="utf-8") as file:
         json.dump(users, file, indent=2)
 
 
@@ -62,7 +62,7 @@ def user_replace(id: int, new_data: dict):
     users = reading_users()
     for user in users:
         if user["id"] == id:
-            user.update(new_data)  # Update existing user
+            user.update(new_data)
             writing_users(users=users)
             return True
 
