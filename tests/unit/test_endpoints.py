@@ -39,6 +39,14 @@ def test_modify_user():
     assert updated_user["name"] == "Tomasz"
 
 
+def test_edit_user_error_id():
+    assert user_update({"name": "Bartosz", "lastname": "Cudny"}, 200)[1] == 400
+
+
+def test_edit_user_error_body():
+    assert user_update({"error": "error"}, 2)[1] == 400
+
+
 def test_replacing_user():
     users = reading_users()
 
@@ -60,3 +68,7 @@ def test_deleting_user():
 
     users = reading_users()
     assert not any(user["id"] == user_id for user in users)
+
+
+def test_delete_user_error():
+    assert user_delete(8)[1] == 400
