@@ -3,7 +3,6 @@ import pytest
 from ...app.controller import *
 
 
-@pytest.fixture
 def test_get_users():
     read_users = reading_users()
     users = users_get()
