@@ -56,6 +56,6 @@ def test_delete_user(client) -> None:
     assert response.status_code == 204
 
 
-def test_delete_user_error(client) -> None:
+def test_delete_user_error(client ) -> None:
     response = client.delete("/users/2137")
     assert response.status_code == 400
